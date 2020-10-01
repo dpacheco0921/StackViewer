@@ -1,0 +1,6 @@
+
+demodata/
+utilities/user_info/fiji_fullpath.m
+*.ffs_db
+*.asv
+*.ffs_lock
