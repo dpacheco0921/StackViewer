@@ -1,9 +1,11 @@
 %% demo
 %% 1) add paths
+
 % it assumes you have already add the repository folders to your path
 addpath(genpath(pwd))
 
 %% 2) Move to folder and Download demo data
+
 tDir = strrep(which('StackViewer_demo'), 'StackViewer_demo.m', '');
 cd(tDir)
 
@@ -20,6 +22,7 @@ unzip(outfilename);
 clear url outfilename
 
 %% 3) visualize a single stack of 2 channels
+
 floatIm = '20200319_1_Zstack';
 floatDir = '.\demodata';
 cha_n = 2;
