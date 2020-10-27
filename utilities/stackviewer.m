@@ -69,6 +69,11 @@ end
 floatIm = strrep(floatIm, '.nrrd', '');
 fIm = rdir([stvpars.iDir, floatIm, '.nrrd']);
 fIm = {fIm.name};
+
+if isempty(fIm)
+	fprintf('No floating images found')
+end
+
 [fIm, stvpars.iDir] = split_path(fIm);
 stvpars.iDir = stvpars.iDir{1};
 if stvpars.iDir(end) ~= filesep
