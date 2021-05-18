@@ -71,7 +71,8 @@ fIm = rdir([stvpars.iDir, floatIm, '.nrrd']);
 fIm = {fIm.name};
 
 if isempty(fIm)
-	fprintf('No floating images found')
+	fprintf('No floating images found in: \n')
+    stvpars.iDir
 end
 
 [fIm, stvpars.iDir] = split_path(fIm);
