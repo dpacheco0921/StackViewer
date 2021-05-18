@@ -22,6 +22,7 @@ unzip(outfilename);
 clear url outfilename
 
 %% 3) visualize a single stack of 2 channels
+cd(tDir)
 
 floatIm = '20200319_1_Zstack';
 floatDir = '.\demodata';
@@ -32,6 +33,7 @@ stackviewer(floatIm, floatDir, [], [], 1, cha_n)
 %   ijmDir, dir_depth, cha_n)
 
 %% 4) overlay 4 stacks of 1 channel each
+cd(tDir)
 
 refIm = 'JFRC2.nrrd';
 floatIm = {'VFB_00005401', 'VFB_00007748', ...

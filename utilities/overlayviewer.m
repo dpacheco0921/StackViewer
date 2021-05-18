@@ -153,6 +153,10 @@ if ~isempty(idx2sel)
 end
 
 % collect full Im directory
+if numel(floatIm_int) > 1 && numel(floatDir) == 1
+    floatDir = repmat(floatDir, [1, numel(floatIm_int)]);
+end
+
 p.floatDir = floatDir;
 cd(p.cDir)
 
