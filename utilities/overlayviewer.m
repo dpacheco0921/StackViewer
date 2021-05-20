@@ -198,26 +198,23 @@ function mat2imj(refIm, floatIm, fijiDir, imjDir, iparams)
 %   iparams: input parameters
 
 % Directories
-if ~isempty(fijiDir)
-    
-    if ispc
-        ij = [fijiDir, 'ImageJ-win64.exe'];
-    elseif ismac
-        ij = [fijiDir, 'ImageJ-macosx'];
-    end
+if ~isempty(fijiDir) && ~isempty(imjDir)
+
+    stvpars.ij = fijiDir;
+    stvpars.converterScript = imjDir;  
     
 else
     
-    ij = fiji_fullpath;
-    imjDir = which('StackViewer_demo');
-    imjDir = [strrep(imjDir, 'StackViewer_demo.m', ''), ...
-        'utilities\overlayviewer.ijm'];
+    if ~exist('fiji_fullpath.m', 'file')
+       fprintf('fiji_fullpath.m does not exist, edit fiji_fullpathtoedit.m or add paths')
+    end
     
-end
-
-if isempty(imjDir)
-    fprintf('Error needs imjDir input\n')
-    return
+    stvpars.ij = fiji_fullpath;
+    repoDir = which('StackViewer_demo');
+    repoDir = strrep(repoDir, 'StackViewer_demo.m', '');
+    stvpars.converterScript = ...
+        [repoDir, 'utilities\overlayviewer.ijm'];
+    
 end
 
 % displaying which files are taking into account and their order
@@ -253,10 +250,10 @@ else
 end
 
 % add repo directory
-inputarg = [inputarg, '*', strrep(imjDir, 'overlayviewer.ijm', '')];
+inputarg = [inputarg, '*', strrep(stvpars.converterScript, 'overlayviewer.ijm', '')];
 
 % execute
-CommandStr = sprintf('%s -macro %s %s', ij, imjDir, inputarg);
+CommandStr = sprintf('"%s" -macro "%s" "%s"', stvpars.ij, stvpars.converterScript, inputarg);
 coexecuter(CommandStr)
 
 end

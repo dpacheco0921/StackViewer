@@ -48,15 +48,23 @@ if ~exist('cha_n', 'var')
     cha_n = 2;
 end
 
-if isempty(fijiexeDir) || isempty(ijmDir)
+if ~isempty(fijiexeDir) && ~isempty(ijmDir)
+
+    stvpars.ij = fijiexeDir;
+    stvpars.converterScript = ijmDir;  
+    
+else
+    
+    if ~exist('fiji_fullpath.m', 'file')
+       fprintf('fiji_fullpath.m does not exist, edit fiji_fullpathtoedit.m or add paths')
+    end
+    
     stvpars.ij = fiji_fullpath;
     repoDir = which('StackViewer_demo');
     repoDir = strrep(repoDir, 'StackViewer_demo.m', '');
     stvpars.converterScript = ...
         [repoDir, 'utilities\stackviewer.ijm'];
-else
-    stvpars.ij = fijiexeDir;
-    stvpars.converterScript = ijmDir;    
+    
 end
 
 stvpars.cha_n = cha_n;
@@ -119,7 +127,7 @@ inputarg = [strrep(iparams.iDir, ['.', filesep], [pwd, filesep]), ...
     '*', iparams.z_n, '*', num2str(iparams.cha_n), '*', floatIm];
 
 % execute
-CommandStr = sprintf('%s -macro %s %s', iparams.ij, ...
+CommandStr = sprintf('"%s" -macro "%s" "%s"', iparams.ij, ...
     iparams.converterScript, inputarg);
 coexecuter(CommandStr)
 
