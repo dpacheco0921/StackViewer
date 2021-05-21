@@ -254,7 +254,12 @@ inputarg = [inputarg, '*', strrep(stvpars.converterScript, 'overlayviewer.ijm', 
 
 % execute
 CommandStr = sprintf('"%s" -macro "%s" "%s"', stvpars.ij, stvpars.converterScript, inputarg);
-coexecuter(CommandStr)
+
+if ispc
+    system(CommandStr)
+else
+    unix(CommandStr)
+end
 
 end
 

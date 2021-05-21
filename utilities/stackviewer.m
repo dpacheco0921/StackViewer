@@ -129,6 +129,11 @@ inputarg = [strrep(iparams.iDir, ['.', filesep], [pwd, filesep]), ...
 % execute
 CommandStr = sprintf('"%s" -macro "%s" "%s"', iparams.ij, ...
     iparams.converterScript, inputarg);
-coexecuter(CommandStr)
+
+if ispc
+    system(CommandStr)
+else
+    unix(CommandStr)
+end
 
 end
